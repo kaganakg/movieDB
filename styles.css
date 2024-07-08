@@ -120,6 +120,7 @@ header button:hover {
     text-align: center;
     font-weight: 900;
 }
+
 .detaylar {
     padding: 7px 20px;
     font-size: 18px;
@@ -129,5 +130,4 @@ header button:hover {
     border-radius: 4px;
     cursor: pointer;
     margin-right: 10px;
-
 }

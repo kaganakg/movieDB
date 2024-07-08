@@ -20,7 +20,7 @@ async function loadTopMovies() {
       alert('Popüler filmler yüklenemedi!');
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Veri alınırken bir hata oluştu:', error);
     alert('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
   }
 }
@@ -39,12 +39,11 @@ async function searchMovies() {
     if (data.Response === 'True') {
       displayMovies(data.Search, 'topMoviesContainer');
       document.getElementById('bottomMoviesContainer').innerHTML = '';
-      document.getElementById('backToHomeButton').style.display = 'inline';
     } else {
       alert('Film bulunamadı!');
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Veri alınırken bir hata oluştu:', error);
     alert('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
   }
 }
@@ -60,7 +59,7 @@ async function getMovieDetails(imdbID) {
       alert('Film detayları bulunamadı.');
     }
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error('Veri alınırken bir hata oluştu:', error);
     alert('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
   }
 }
@@ -90,10 +89,10 @@ function displayMovieDetails(movie) {
 
   movieDetailsContainer.innerHTML = `
     <h2>${movie.Title}</h2>
-    <p><strong>IMDb Rating:</strong> ${movie.imdbRating}</p>
+    <p><strong>IMDb Puanı:</strong> ${movie.imdbRating}</p>
     <p><strong>Metascore:</strong> ${movie.Metascore}</p>
-    <p><strong>Runtime:</strong> ${movie.Runtime}</p>
-    <p><strong>Plot:</strong> ${movie.Plot}</p>
+    <p><strong>Süre:</strong> ${movie.Runtime}</p>
+    <p><strong>Konu:</strong> ${movie.Plot}</p>
     <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'placeholder.jpg'}" alt="${movie.Title}">
   `;
 
@@ -105,5 +104,4 @@ function displayMovieDetails(movie) {
 function showHomePage() {
   displayMovies(topMovies, 'topMoviesContainer');
   displayMovies(bottomMovies, 'bottomMoviesContainer');
-  document.getElementById('backToHomeButton').style.display = 'none';
 }
