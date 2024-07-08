@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Film Veritabanı</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Film Veritabanı</h1>
+    <input type="text" id="searchInput" placeholder="Film arayın...">
+    <button onclick="searchMovies()">Search</button>
+    <button id="backToHomeButton" onclick="showHomePage()" style="display: none;">Ana Ekrana Dön</button>
+  </header>
+  
+  <h2 class="header-top-list">Top list</h2>
+  <main>
+    <section id="topMoviesContainer"></section>
+    <section id="bottomMoviesContainer"></section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
