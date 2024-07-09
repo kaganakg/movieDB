@@ -48,8 +48,6 @@ async function searchMovies(query) {
     if (data.Response === 'True') {
       searchResults = data.Search;
       displaySearchResults(searchResults);
-    } else {
-      
     }
   } catch (error) {
     console.error('Veri alınırken bir hata oluştu:', error);
@@ -93,6 +91,7 @@ function displaySearchResults(movies) {
     movieElement.addEventListener('click', () => {
       getMovieDetails(movie.imdbID);
       clearSearchResults();
+      toggleBackToHomeButton(true);
     });
 
     searchResultsContainer.appendChild(movieElement);
@@ -106,6 +105,7 @@ async function getMovieDetails(imdbID) {
 
     if (data.Response === 'True') {
       displayMovieDetails(data);
+      toggleBackToHomeButton(true);
     } else {
       alert('Film detayları bulunamadı.');
     }
@@ -136,6 +136,7 @@ function displayMovieDetails(movie) {
 function showHomePage() {
   displayMovies(topMovies, 'topMoviesContainer');
   displayMovies(bottomMovies, 'bottomMoviesContainer');
+  toggleBackToHomeButton(false);
 }
 
 function handleSearchInput(event) {
@@ -146,4 +147,13 @@ function handleSearchInput(event) {
 function clearSearchResults() {
   const searchResultsContainer = document.getElementById('searchResults');
   searchResultsContainer.innerHTML = '';
+}
+
+function toggleBackToHomeButton(show) {
+  const backToHomeButton = document.getElementById('backToHomeButton');
+  if (show) {
+    backToHomeButton.style.display = 'inline-block';
+  } else {
+    backToHomeButton.style.display = 'none';
+  }
 }
