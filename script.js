@@ -14,7 +14,7 @@ function debounce(func, delay) {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadTopMovies();
-  document.getElementById('searchInput').addEventListener('input', debounce(handleSearchInput, 500));
+  document.getElementById('searchInput').addEventListener('input', debounce(handleSearchInput, 1));
 });
 
 async function loadTopMovies() {
