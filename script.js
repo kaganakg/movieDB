@@ -1,9 +1,20 @@
 const apiKey = '531f5cc3';
 let topMovies = [];
 let bottomMovies = [];
+let searchResults = [];
+
+// debounce fonksiyonu
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   loadTopMovies();
+  document.getElementById('searchInput').addEventListener('input', debounce(handleSearchInput, 500));
 });
 
 async function loadTopMovies() {
@@ -25,10 +36,8 @@ async function loadTopMovies() {
   }
 }
 
-async function searchMovies() {
-  const query = document.getElementById('searchInput').value.trim();
+async function searchMovies(query) {
   if (!query) {
-    alert('Lütfen bir film adı girin.');
     return;
   }
 
@@ -37,26 +46,10 @@ async function searchMovies() {
     const data = await response.json();
 
     if (data.Response === 'True') {
-      displayMovies(data.Search, 'topMoviesContainer');
-      document.getElementById('bottomMoviesContainer').innerHTML = '';
+      searchResults = data.Search;
+      displaySearchResults(searchResults);
     } else {
-      alert('Film bulunamadı!');
-    }
-  } catch (error) {
-    console.error('Veri alınırken bir hata oluştu:', error);
-    alert('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
-  }
-}
-
-async function getMovieDetails(imdbID) {
-  try {
-    const response = await fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`);
-    const data = await response.json();
-
-    if (data.Response === 'True') {
-      displayMovieDetails(data);
-    } else {
-      alert('Film detayları bulunamadı.');
+      
     }
   } catch (error) {
     console.error('Veri alınırken bir hata oluştu:', error);
@@ -83,6 +76,45 @@ function displayMovies(movies, containerId) {
   });
 }
 
+function displaySearchResults(movies) {
+  const searchResultsContainer = document.getElementById('searchResults');
+  searchResultsContainer.innerHTML = '';
+
+  movies.forEach(movie => {
+    const movieElement = document.createElement('div');
+    movieElement.classList.add('search-result-item');
+    movieElement.dataset.imdbid = movie.imdbID;
+
+    movieElement.innerHTML = `
+      <img src="${movie.Poster !== 'N/A' ? movie.Poster : 'placeholder.jpg'}" alt="${movie.Title}">
+      <span>${movie.Title}</span>
+    `;
+
+    movieElement.addEventListener('click', () => {
+      getMovieDetails(movie.imdbID);
+      clearSearchResults();
+    });
+
+    searchResultsContainer.appendChild(movieElement);
+  });
+}
+
+async function getMovieDetails(imdbID) {
+  try {
+    const response = await fetch(`http://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`);
+    const data = await response.json();
+
+    if (data.Response === 'True') {
+      displayMovieDetails(data);
+    } else {
+      alert('Film detayları bulunamadı.');
+    }
+  } catch (error) {
+    console.error('Veri alınırken bir hata oluştu:', error);
+    alert('Veri alınırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
+  }
+}
+
 function displayMovieDetails(movie) {
   const movieDetailsContainer = document.createElement('div');
   movieDetailsContainer.classList.add('movie-details');
@@ -97,11 +129,21 @@ function displayMovieDetails(movie) {
   `;
 
   const movieContainer = document.getElementById('topMoviesContainer');
-  movieContainer.innerHTML = ''; 
+  movieContainer.innerHTML = '';
   movieContainer.appendChild(movieDetailsContainer);
 }
 
 function showHomePage() {
   displayMovies(topMovies, 'topMoviesContainer');
   displayMovies(bottomMovies, 'bottomMoviesContainer');
+}
+
+function handleSearchInput(event) {
+  const query = event.target.value.trim();
+  searchMovies(query);
+}
+
+function clearSearchResults() {
+  const searchResultsContainer = document.getElementById('searchResults');
+  searchResultsContainer.innerHTML = '';
 }

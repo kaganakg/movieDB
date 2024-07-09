@@ -1,3 +1,39 @@
+#searchResults {
+    position: absolute;
+    background: white;
+    width: 60%;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin-top: 10px;
+    color: black;
+    margin-left: 14%;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer; 
+}
+
+.search-result-item img {
+    width: 50px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.search-result-item span {
+    font-size: 18px;
+}
+
+.search-result-item:hover {
+    background-color: red;
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -9,19 +45,17 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    background:linear-gradient(120deg,black,red);
+    background: linear-gradient(120deg, black, red);
+   
 }
 
 header {
-   
     color: #fff;
     padding: 20px;
     text-align: center;
-    position: sticky;
     top: 0;
     z-index: 1000;
     
-    background:linear-gradient(1dg,black,red);
 }
 
 header h1 {
@@ -42,7 +76,7 @@ header button {
     padding: 10px 20px;
     font-size: 18px;
     border: none;
-    background-color: #4CAF50;
+    background-color: black;
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -50,15 +84,16 @@ header button {
 }
 
 header button:hover {
-    background-color: #45a049;
+    background-color: red;
 }
 
-#topMoviesContainer, #bottomMoviesContainer {
+#topMoviesContainer,
+#bottomMoviesContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
-    gap: 20px; 
+    gap: 20px;
 }
 
 .movie {
@@ -72,7 +107,7 @@ header button:hover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-radius: 8px; 
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -84,88 +119,65 @@ header button:hover {
 .movie img {
     width: 100%;
     height: auto;
-    border-radius: 4px; 
+    margin-bottom: 10px;
+    border-radius: 8px;
 }
 
 .movie h3 {
-    margin-top: 10px;
     font-size: 20px;
+    margin: 10px 0;
 }
 
 .movie p {
-    margin-top: 5px;
     font-size: 16px;
+    color: black;
+    margin-bottom: 10px;
 }
 
-.movie .detaylar {
-    padding: 10px 20px;
+.movie button {
+    padding: 10px;
     font-size: 16px;
     border: none;
-    background-color: #007BFF;
+    background-color: red;
     color: white;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 15px;
 }
 
-.movie .detaylar:hover {
-    background-color: #0056b3;
+.movie button:hover {
+    background-color: black;
 }
 
 .movie-details {
     background-color: #fff;
     border: 1px solid #ccc;
+    color: black;
     margin: 10px;
     padding: 20px;
-    width: 100%;
-    text-align: left;
-    border-radius: 8px; 
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.movie-details img {
+    width: 300px;
+    height: 450px;
+    margin-bottom: 10px;
+    border-radius: 8px;
 }
 
 .movie-details h2 {
     font-size: 24px;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .movie-details p {
-    margin-top: 5px;
     font-size: 16px;
-}
-
-.movie-details img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 4px; 
-}
-
-@media (max-width: 768px) {
-    .movie {
-        width: calc(50% - 20px);
-    }
-}
-
-@media (max-width: 480px) {
-    .movie {
-        width: calc(100% - 20px);
-    }
-
-    header input[type="text"] {
-        width: calc(100% - 90px); 
-    }
-
-    header button {
-        margin-top: 10px;
-        width: 100%;
-    }
-}
-
-.header-top-list {
-    text-align: center;
-    font-weight: 900;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    color: white;
+    color: black;
+    margin-bottom: 10px;
 }
